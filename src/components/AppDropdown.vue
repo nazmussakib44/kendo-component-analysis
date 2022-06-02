@@ -1,13 +1,15 @@
 <template>
   <div>
-      <DropDownList
+    <DropDownList
       :class="classs"
       :data-items="item"
       :text-field="textField"
       :data-item-key="dataItemKey"
       :value="value"
+      :filterable="searchable"
       @change="handleDropdownChange"
       @filterchange="filterChange"
+      :value-render="DropdownTemplate"
 
   >
     <template v-slot:DropdownTemplate="{props}">
@@ -85,13 +87,16 @@ export default {
       sports: ["Basketball", "Football", "Tennis", "Volleyball"],
     };
   },
-  mounted() {
+  created() {
     this.item = this.$props.dataItem;
+  },
+  mounted() {
+    // this.item = this.$props.dataItem;
   },
   computed: {
     selector_text() {
       return this.$props.textField;
-    }
+    },
   },
   methods: {
     handleDropdownChange(event) {
